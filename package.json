@@ -79,6 +79,7 @@
   "dependencies": {
     "@jswork/noop": "^1.0.0",
     "@jswork/react-admin-icons": "^1.0.0",
+    "blueimp-md5": "^2.18.0",
     "classnames": "^2.2.6"
   },
   "publishConfig": {
