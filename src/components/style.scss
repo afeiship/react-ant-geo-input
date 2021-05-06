@@ -1,0 +1,13 @@
+$react-ant-geo-input-options: () !default;
+
+.react-ant-geo-input {
+  // your styles
+
+  .is-lnglat {
+    margin-top: 10px;
+    display: flex;
+    > input:last-child {
+      margin-left: -1px;
+    }
+  }
+}
