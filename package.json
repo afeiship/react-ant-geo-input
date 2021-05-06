@@ -1,6 +1,6 @@
 {
   "name": "@jswork/react-ant-geo-input",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Geo input for react.",
   "main": "dist/index.js",
   "scripts": {
@@ -19,7 +19,17 @@
     "type": "git",
     "url": "git+https://github.com/afeiship/react-ant-geo-input.git"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "antd",
+    "ant",
+    "geo",
+    "input",
+    "latitude",
+    "lng",
+    "lat",
+    "lbs"
+  ],
   "author": "afei",
   "license": "MIT",
   "browserslist": {
