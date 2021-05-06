@@ -29,6 +29,13 @@ __GENERATE_DOCS__
   ```js
 __GENERATE_DAPP__
   ```
+3. set proxy
+   ```nginx
+    proxy: {
+      '/ws/geocoder': 'https://apis.map.qq.com'
+    }
+   ```
+4. preview at: http://0.0.0.0:8080/
 
 ## documentation
 - https://afeiship.github.io/react-ant-geo-input/

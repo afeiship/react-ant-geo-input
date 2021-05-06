@@ -49,9 +49,9 @@ npm install -S @jswork/react-ant-geo-input
           className="p-3 app-container"
           url="https://github.com/afeiship/react-ant-geo-input">
           <ReactAntGeoInput
-            value={'武汉市江岸区塔子湖街道秋桂街108号锦绣家园馨竹苑2栋1单元705'}
-            lat={140}
-            lng={10}
+            value={'上海市浦东新区博云路2号浦软大厦5楼'}
+            lat={31.202328}
+            lng={121.603882}
             onChange={(e) => {
               console.log('e:', e.target.value);
             }}
@@ -64,6 +64,13 @@ npm install -S @jswork/react-ant-geo-input
   ReactDOM.render(<App />, document.getElementById('app'));
 
   ```
+3. set proxy
+   ```nginx
+    proxy: {
+      '/ws/geocoder': 'https://apis.map.qq.com'
+    }
+   ```
+4. preview at: http://0.0.0.0:8080/
 
 ## documentation
 - https://afeiship.github.io/react-ant-geo-input/

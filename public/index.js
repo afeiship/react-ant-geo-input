@@ -11,9 +11,9 @@ class App extends React.Component {
         className="p-3 app-container"
         url="https://github.com/afeiship/react-ant-geo-input">
         <ReactAntGeoInput
-          value={'武汉市江岸区塔子湖街道秋桂街108号锦绣家园馨竹苑2栋1单元705'}
-          lat={140}
-          lng={10}
+          value={'上海市浦东新区博云路2号浦软大厦5楼'}
+          lat={31.202328}
+          lng={121.603882}
           onChange={(e) => {
             console.log('e:', e.target.value);
           }}
