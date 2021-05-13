@@ -47,31 +47,41 @@ export default class ReactAntGeoInput extends Component {
     /**
      * The change handler.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    /**
+     * If lat/lng should be editalbe.
+     */
+    readOnly: PropTypes.bool
   };
 
   static defaultProps = {
     onChange: noop,
+    readOnly: false,
     appKey: '5Q5BZ-5EVWJ-SN5F3-K6QBZ-B3FAO-RVBWM',
     secretKey: 'SWvT26ypwq5Nwb5RvS8cLi6NSoH8HlJX'
   };
 
   constructor(inProps) {
     super(inProps);
-    const { lng, lat } = inProps;
+    const { lng, lat, value } = inProps;
     this.state = {
       busy: false,
+      value,
       lng,
       lat
     };
   }
 
   shouldComponentUpdate(inProps) {
-    const { lng, lat } = inProps;
-    if (lng && lat) {
-      if (lat !== this.state.lat || lng !== this.state.lng) {
-        this.setState({ lng, lat });
-      }
+    const { value, lng, lat } = inProps;
+    if (lat !== this.state.lat) {
+      this.setState({ lat });
+    }
+    if (lng !== this.state.lng) {
+      this.setState({ lng });
+    }
+    if (value !== this.state.value) {
+      this.setState({ value });
     }
     return true;
   }
@@ -93,6 +103,15 @@ export default class ReactAntGeoInput extends Component {
       });
   };
 
+  handleChange = (inEvent) => {
+    const { onChange } = this.props;
+    const { name, value } = inEvent.target;
+    this.setState({ [name]: parseFloat(value) || value }, () => {
+      const { busy, ...theState } = this.state;
+      onChange({ target: { value: theState } });
+    });
+  };
+
   render() {
     const {
       className,
@@ -101,6 +120,7 @@ export default class ReactAntGeoInput extends Component {
       value,
       lng,
       lat,
+      readOnly,
       onChange,
       ...props
     } = this.props;
@@ -117,6 +137,7 @@ export default class ReactAntGeoInput extends Component {
           placeholder="请录入地址"
           defaultValue={value}
           enterButton
+          name="value"
           loading={busy}
           onChange={this.handleChange}
           onSearch={this.handleSearch}
@@ -128,9 +149,10 @@ export default class ReactAntGeoInput extends Component {
                 <ReactAdminIcons value="component" />
               </Tooltip>
             }
-            readOnly
-            value={_lng}
+            readOnly={readOnly}
             name="lng"
+            onChange={this.handleChange}
+            value={_lng}
             placeholder="经度"
           />
           <Input
@@ -139,9 +161,10 @@ export default class ReactAntGeoInput extends Component {
                 <ReactAdminIcons value="engine" />
               </Tooltip>
             }
-            readOnly
-            value={_lat}
+            readOnly={readOnly}
             name="lat"
+            value={_lat}
+            onChange={this.handleChange}
             placeholder="纬度"
           />
         </div>
