@@ -21,6 +21,7 @@ npm install -S @jswork/react-ant-geo-input
 | lng       | number | false    | -                                     | The longtitude of the address.                                    |
 | lat       | number | false    | -                                     | The latitude of the address.                                      |
 | onChange  | func   | false    | noop                                  | The change handler.                                               |
+| readOnly  | bool   | false    | false                                 | If lat/lng should be editalbe.                                    |
 
 
 ## usage
@@ -43,16 +44,24 @@ npm install -S @jswork/react-ant-geo-input
   import './assets/style.scss';
 
   class App extends React.Component {
+    state = {
+      value: '上海市浦东新区博云路2号浦软大厦5楼',
+      lat: 31.202328,
+      lng: 121.603882
+    };
+
     render() {
+      const { value, lat, lng } = this.state;
       return (
         <ReactDemokit
           className="p-3 app-container"
           url="https://github.com/afeiship/react-ant-geo-input">
           <ReactAntGeoInput
-            value={'上海市浦东新区博云路2号浦软大厦5楼'}
-            lat={31.202328}
-            lng={121.603882}
+            value={value}
+            lat={lat}
+            lng={lng}
             onChange={(e) => {
+              this.setState(e.target.value);
               console.log('e:', e.target.value);
             }}
           />
