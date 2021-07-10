@@ -49,6 +49,10 @@ export default class ReactAntGeoInput extends Component {
      */
     onChange: PropTypes.func,
     /**
+     * The handler when has error caught.
+     */
+    onError: PropTypes.func,
+    /**
      * If lat/lng should be editalbe.
      */
     readOnly: PropTypes.bool
@@ -56,6 +60,7 @@ export default class ReactAntGeoInput extends Component {
 
   static defaultProps = {
     onChange: noop,
+    onError: noop,
     readOnly: false,
     appKey: '5Q5BZ-5EVWJ-SN5F3-K6QBZ-B3FAO-RVBWM',
     secretKey: 'SWvT26ypwq5Nwb5RvS8cLi6NSoH8HlJX'
@@ -87,7 +92,7 @@ export default class ReactAntGeoInput extends Component {
   }
 
   handleSearch = (inValue) => {
-    const { appKey, secretKey, onChange } = this.props;
+    const { appKey, secretKey, onChange, onError } = this.props;
     const path = `/ws/geocoder/v1?key=${appKey}&address=${inValue}`;
     const sig = md5(path + secretKey);
     const url = `/ws/geocoder/v1?key=${appKey}&address=${inValue}&sig=${sig}`;
@@ -95,11 +100,17 @@ export default class ReactAntGeoInput extends Component {
     fetch(url)
       .then((res) => res.json())
       .then((res) => {
-        const { location } = res.result;
-        this.setState({ ...location, busy: false });
-        onChange({
-          target: { value: { ...location, value: inValue } }
-        });
+        let location = { lat: 0, lng: 0 };
+        if (res.status !== 0) {
+          onError({ target: { value: 'nodata' } });
+        } else {
+          location = res.result.location;
+        }
+        this.setState(location);
+        onChange({ target: { value: { ...location, value: inValue } } });
+      })
+      .finally(() => {
+        this.setState({ busy: false });
       });
   };
 
