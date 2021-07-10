@@ -21,6 +21,7 @@ npm install -S @jswork/react-ant-geo-input
 | lng       | number | false    | -                                     | The longtitude of the address.                                    |
 | lat       | number | false    | -                                     | The latitude of the address.                                      |
 | onChange  | func   | false    | noop                                  | The change handler.                                               |
+| onError   | func   | false    | noop                                  | The handler when has error caught.                                |
 | readOnly  | bool   | false    | false                                 | If lat/lng should be editalbe.                                    |
 
 
